@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>재예약하기</title>
+        <link rel='stylesheet' />
+        
+    </head>
+    <body>
+        <h1> 재예약하기 </h1>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">2020-10-30</a>
+              <a class="dropdown-item" href="#">2020-11-01 action</a>
+              <a class="dropdown-item" href="#">2020-11-02</a>
+            </div>
+          </div>
+          
+          <div>{{chatting.pub_date | date:'y-m-d-D, H:i' }}</div>
+      ㅣ
+          <form action="{% url 'posts:create' %}" method="POST">
+            {% csrf_token %}
+      
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>메뉴</th>
+                  <th>재고</th>
+                  <th>가격</th>
+                  <th>주문수량</th>
+                </tr>
+              </thead>
+            
+              <tbody>
+                {% for post in posts %}
+                  <tr>
+                    <th>{{ post.menu }}</th>
+                    <td>{{ post.stock}}</td>
+                    <td>{{ post.price }}</td>
+                    <td>{{ post.order}}</td>
+        
+                  
+                    <td><a href="{% url 'posts:detail' post.id %}">예약하기</a></td>
+                  </tr>
+                {% endfor %}
+                {% if post.image %}
+                <div>
+                  <img src="{{ post.image.url }}" alt="Post Image" />
+                </div>
+              {% endif %}  
+              </tbody>
+            </table>
+      
+            <br />

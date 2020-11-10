@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'posts/style.css'%}" />
+{% endblock %}
+
+{% block content %}
+
+    <h1>My page</h1>
+
+    {% if post %}
+      <h2>이름</h2>
+      <p>{{ post.user.get_username }}</p>
+
+      <h2>전화번호</h2>
+      <p>{{ post.phnumber }}</p>
+
+      <h2>구매내역보기</h2>
+      <a href="{% url 'posts:detail' %}">구매내역보기</a>
+      <p>{{ post.menu }}</p>
+
+      <h2>내가쓴 리뷰</h2>
+      <a href="{% url 'posts:index' %}">리뷰보기</a>  
+      <p>{{ post.today }}</p>
+
+
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary">취소하기</button>
+        <button type="button" class="btn btn-secondary">후기쓰기</button>
+        <button type="button" class="btn btn-secondary">재예약하기</button>
+      </div>
+      
+    {% else %}
+      <p>No Post.</p>
+    {% endif %}
+    {% if user == post.user %}
+    <a href="{% url 'posts:delete' post.id %}">취소하기</a>
+    <a href="{% url 'posts:' %}">후기쓰기</a>
+    <a href="{% url 'posts:edit' post.id %}">재예약하기</a>
+    {% endif %}
+{% endblock %}    

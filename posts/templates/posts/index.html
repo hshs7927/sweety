@@ -1,0 +1,35 @@
+{% block content %}
+    
+    
+    <h1>스토어 재고페이지</h1>
+
+    <div>{{chatting.pub_date | date:'y-m-d-D, H:i' }}</div>
+    {% if posts %}
+    <table>
+      <thead>
+        <tr>
+          
+          <th>메뉴</th>
+          <th>재고</th>
+          <th>가격</th>
+          <th>접수시간</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr>
+            <th>{{ post.menu }}</th>
+            <td>{{ post.stock}}</td>
+            <td>{{ post.price }}</td>
+            <td>{{ post.created_at }}</td>
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No Posts.</p>
+  {% endif %}
+  <a href="{% url 'posts:new' %}">예약하기</a>
+ {% endblock %}
